@@ -1,0 +1,10 @@
+name: XFiller
+version: ${project.version}
+description: Allows player to fill up their XP
+author: SteuerungC
+website: www.steuerungc.de
+main: de.steuerungc.xfiller.Main
+commands:
+  xfiller:
+    usage: Type /xfiller help for further information
+    aliases: [fill, xf]
