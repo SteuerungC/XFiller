@@ -22,7 +22,7 @@ public class ExperienceCalculator {
     }
 
     public int getPossibleBottleCount() {
-        return (int)((this.totalXP(level) + exp) / offset);
+        return (int)((totalXP(level) + exp*xpToNextLevel(level)) / offset);
     }
 
     public void apply(Player p, int count) {
@@ -30,16 +30,28 @@ public class ExperienceCalculator {
     }
 
     public boolean isPossible(int count) {
-        if (count*offset <= (this.totalXP(level) + exp)) {
+        if (count*offset <= (totalXP(level) + exp)) {
             return true;
         } else {
             return false;
         }
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public int getTotalXP() {
+        return completeXP(level, exp);
+    }
+
+    public int toNextLevel() {
+        return (int)(xpToNextLevel(level) - exp*xpToNextLevel(level));
+    }
+
     private static int xpToNextLevel(int cur_Level) throws IllegalArgumentException {
         if (cur_Level < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Level can't be less than 0");
         } else if (cur_Level > 0 && cur_Level < 17) {
             return 2*cur_Level+7;
         } else if (cur_Level > 16 && cur_Level < 32) {
@@ -52,7 +64,7 @@ public class ExperienceCalculator {
 
     private static int totalXP(int cur_Level) throws IllegalArgumentException {
         if (cur_Level < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Level can't be less than 0");
         } else if (cur_Level > 0 && cur_Level < 17) {
             return (cur_Level ^ 2) + (6 * cur_Level);
         } else if (cur_Level > 16 && cur_Level < 32) {
@@ -61,5 +73,9 @@ public class ExperienceCalculator {
             return (int) (4.5 * (cur_Level ^ 2) - (162.5 * cur_Level) + 2220);
         }
         return 0;
+    }
+
+    private static int completeXP(int cur_Level, float exp) {
+        return (int)(totalXP(cur_Level) + exp*xpToNextLevel(cur_Level));
     }
 }

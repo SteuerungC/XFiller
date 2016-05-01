@@ -1,16 +1,22 @@
-# DRAFT:
-# XP_PER_BOTTLE: int
-# LOGMODE: int
-# SOUND: boolean
-# SUCESS-MESSAGE: boolean
-# BLOCK-NO-PERM-MESSAGE: boolean
-# RANDOM-MODE: int (Range +/- int, 0 = off)
-# MESSAGES:
-#   No Permission
-#   Success
-#   OwnXP
-#   ForeignXP
-#   NotEnough
-#   Inventory Full
-#   Help
-#   Player not found
+# XFILLER Configuration - Type /xfiller reload or restart your server to activate changes.
+settings:
+  xp_per_bottle: 10
+  sound: true
+  success_message: true
+  no_permission_message: true
+  extensive_log: false
+
+messages:
+  prefix: '&a&l[XFiller]'
+  no_permission: '&cYou do not have permission to do that.'
+  fill_success: '&fYour XP was filled up successfully!'
+  ownXP_info: '&f&lInformation of own XP\n&fLevel: &a%level%\n&fXP: Total: &a%total_xp% &f- To next Level: &a%next%\n&fBotells that can be filled: &a%bottles%'
+  foreignXP_info: '&f&lInformation of %player%s XP\n&fLevel: &a%level%\n&fXP: Total: &a%total_xp% &f- To next Level: &a%next%\n&fBotells that can be filled: &a%bottles%'
+  not_enough_xp: '&cYou do not have enough XP.'
+  inventory_full: '&cYou Inventory is full.'
+  undercharging_bottles: '&cYou do not have enough  enough bottles.'
+  player_not_found: '&cCannot find a online player by this name.'
+  help_fill: '&f&lHelp:\n&a/xfiller &f- Fill one bottle\n&a/xfiller <amount> &f- Fill up a specific amount\n&a/xfiller all &f- Fill all xp'
+
+# DO NOT TOUCH AREA! Never change this value!
+config_version: 1

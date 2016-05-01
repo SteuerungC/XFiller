@@ -7,15 +7,11 @@ import org.bukkit.entity.Player;
  */
 public class TaskHandler {
 
-    public boolean fillOne(Player p) {
-        return false;
-    }
-
-    public boolean fillAmount(Player p, int amount) {
+    public boolean fillAmount(Player p, int amount, boolean hand) {
         return true;
     }
 
-    public boolean fillAll(Player p) {
+    public boolean fillAll(Player p, boolean hand) {
         return true;
     }
 }

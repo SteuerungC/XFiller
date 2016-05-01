@@ -10,6 +10,10 @@ import java.util.Set;
  */
 public final class Tools {
 
+    public static String messageMaker(String in, String prefix) {
+        return colorMaker(prefix + "&r " + in);
+    }
+
     public static String colorMaker(String in) {
         return ChatColor.translateAlternateColorCodes('&', in);
     }

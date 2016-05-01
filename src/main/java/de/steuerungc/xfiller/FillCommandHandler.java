@@ -12,31 +12,71 @@ import java.util.List;
  */
 public class FillCommandHandler implements TabExecutor {
 
+    private Main m;
+
+    public FillCommandHandler(Main m) {
+        this.m = m;
+    }
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
+        Player p = null;
         if (commandSender instanceof Player) {
-            Player p = (Player)commandSender;
+            p = (Player)commandSender;
         } else {
             commandSender.sendMessage(Tools.colorMaker("&4This command can't be executed from console!"));
             return true;
         }
 
         if (args.length == 0 || args[0].equals("") || args.length > 1) {
-            //TODO Proceed fill one
+            if (m.isWorking()) {
+                if (p.hasPermission("xfiller.commandfill")) {
+                    new TaskHandler().fillAmount(p, 1, false);
+                } else {
+                    this.sendNoPerm(p);
+                }
+            } else {
+                this.sendNotWorking(p);
+            }
             return true;
         } else {
             switch (args[0].toLowerCase()) {
                 case "all":
-                    //TODO Proceed Fill all
+                    if (m.isWorking()) {
+                        if (p.hasPermission("xfiller.commandfill.all")) {
+                            new TaskHandler().fillAll(p, false);
+                        } else {
+                            this.sendNoPerm(p);
+                        }
+                    } else {
+                        this.sendNotWorking(p);
+                    }
                     return true;
                 case "help":
-                    //TODO Message output: Help
-                    return true;
-                case "info":
-                    //TODO Message output: Own Info
+                    if (m.isWorking()) {
+                        if (p.hasPermission("xfiller.help")) {
+                            this.sendHelp(p);
+                        } else {
+                            this.sendNoPerm(p);
+                        }
+                    } else {
+                        this.sendNotWorking(p);
+                    }
                     return true;
                 case "reload":
-                    //TODO Proceed Reload
+                    if(m.isWorking()) {
+                        if (p.hasPermission("xfiller.reload")) {
+                            m.performRelaod(p, m.sendConfig().getString("messages.prefix"));
+                        } else {
+                            this.sendNoPerm(p);
+                        }
+                    } else {
+                        if (p.hasPermission("xfiller.reload")) {
+                            m.performRelaod(p, "&c[Failure Mode]");
+                        } else {
+                            this.sendNotWorking(p);
+                        }
+                    }
                     return true;
                 default:
                     int i;
@@ -47,10 +87,26 @@ public class FillCommandHandler implements TabExecutor {
                     }
 
                     if (i > 0) {
-                        //TODO Proceed Fill amount i
+                        if (m.isWorking()) {
+                            if (p.hasPermission("xfiller.commandfill")) {
+                                new TaskHandler().fillAmount(p, i, false);
+                            } else {
+                                this.sendNoPerm(p);
+                            }
+                        } else {
+                            this.sendNotWorking(p);
+                        }
                         return true;
                     } else {
-                        //TODO Message out: Help
+                        if (m.isWorking()) {
+                            if (p.hasPermission("xfiller.help")) {
+                                this.sendHelp(p);
+                            } else {
+                                this.sendNoPerm(p);
+                            }
+                        } else {
+                            this.sendNotWorking(p);
+                        }
                         return true;
                     }
             }
@@ -60,5 +116,20 @@ public class FillCommandHandler implements TabExecutor {
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String label, String[] args) {
         return null;
+    }
+
+    private void sendNoPerm(Player p) {
+        p.sendMessage(Tools.messageMaker(m.sendConfig().getString("messages.no_permission"),
+                m.sendConfig().getString("messages.prefix")));
+    }
+
+    private void sendHelp(Player p) {
+        p.sendMessage(Tools.messageMaker(m.sendConfig().getString("messages.help_fill"),
+                m.sendConfig().getString("messages.prefix")));
+    }
+
+    private void sendNotWorking(Player p) {
+        p.sendMessage(Tools.colorMaker("&4The plugins configuration contains errors. Please refer to log for futher information!"));
+
     }
 }
