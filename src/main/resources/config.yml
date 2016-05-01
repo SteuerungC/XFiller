@@ -1,10 +1,16 @@
-name: XFiller
-version: ${project.version}
-description: Allows player to fill up their XP
-author: SteuerungC
-website: www.steuerungc.de
-main: de.steuerungc.xfiller.Main
-commands:
-  xfiller:
-    usage: Type /xfiller help for further information
-    aliases: [fill, xf]
+# DRAFT:
+# XP_PER_BOTTLE: int
+# LOGMODE: int
+# SOUND: boolean
+# SUCESS-MESSAGE: boolean
+# BLOCK-NO-PERM-MESSAGE: boolean
+# RANDOM-MODE: int (Range +/- int, 0 = off)
+# MESSAGES:
+#   No Permission
+#   Success
+#   OwnXP
+#   ForeignXP
+#   NotEnough
+#   Inventory Full
+#   Help
+#   Player not found
